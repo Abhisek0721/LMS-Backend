@@ -18,13 +18,15 @@ app.use(express.json({ limit: "50mb" }));
 // cookie parser
 app.use(cookieParser());
 
-// cors => cross origin resource sharing
-const corsOptions = {
-  origin: "*", // Replace with your frontend URL
-  credentials: true, // Allow cookies to be sent
-};
+// enable this if you run behind a proxy (e.g. nginx)
+app.set("trust proxy", 1);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_BASE_URL,
+    credentials: true, // Allow cookies to be sent across domains
+  })
+);
 
 // api requests limit
 const limiter = rateLimit({
