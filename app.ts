@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 // cors => cross origin resource sharing
 const corsOptions = {
-  origin: '*', // Replace with your frontend URL
+  origin: "*", // Replace with your frontend URL
   credentials: true, // Allow cookies to be sent
 };
 
@@ -32,6 +32,13 @@ const limiter = rateLimit({
   max: 100,
   standardHeaders: "draft-7",
   legacyHeaders: false,
+});
+
+app.get("/", (req, res) => {
+  res.send(`
+    <body style="background-color: #1b1b32; color: #fff;">
+        <h1 style="font-family: sans-serif;"> Running on Port: ${process.env.PORT} </h1>
+    </body>`);
 });
 
 // routes
